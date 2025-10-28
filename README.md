@@ -1,6 +1,6 @@
 # Noti Vim - CLI and Vim Plugin for Noti Notes
 
-A fast, standalone CLI tool and Vim/Neovim plugin for managing markdown notes compatible with the [Noti desktop app](../noti-app).
+A fast, standalone CLI tool and Vim/Neovim plugin for managing markdown notes compatible with the [Noti desktop app](https://github.com/devjasha/Noti).
 
 ## Features
 
@@ -18,7 +18,12 @@ A fast, standalone CLI tool and Vim/Neovim plugin for managing markdown notes co
 #### From Source
 ```bash
 go install github.com/devjasha/noti-vim/cmd/noti@latest
+
+# Make sure ~/go/bin is in your PATH
+export PATH="$PATH:$HOME/go/bin"
 ```
+
+**Note**: The binary will be installed to `~/go/bin/noti`. Add `~/go/bin` to your PATH if not already present.
 
 #### From Binary
 Download the latest release for your platform from [GitHub Releases](https://github.com/devjasha/noti-vim/releases).
