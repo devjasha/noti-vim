@@ -1,0 +1,198 @@
+*noti.txt*  Vim plugin for Noti markdown notes
+
+CONTENTS                                                       *noti-contents*
+
+1. Introduction ............................ |noti-introduction|
+2. Installation ............................ |noti-installation|
+3. Configuration ........................... |noti-configuration|
+4. Commands ................................ |noti-commands|
+5. Keybindings ............................. |noti-keybindings|
+6. Functions ............................... |noti-functions|
+
+==============================================================================
+1. INTRODUCTION                                          *noti-introduction*
+
+Noti.vim is a Vim/Neovim plugin for managing markdown notes. It provides
+integration with the Noti CLI tool to create, search, and organize notes
+directly from your editor.
+
+Requirements:
+  - Vim 8.0+ or Neovim 0.5+
+  - noti CLI tool installed and in PATH
+  - JSON support (built-in for modern Vim/Neovim)
+
+==============================================================================
+2. INSTALLATION                                          *noti-installation*
+
+Install the noti CLI first:
+>
+    go install github.com/devjasha/noti-vim/cmd/noti@latest
+<
+
+Then install the plugin using your favorite plugin manager:
+
+vim-plug: >
+    Plug 'devjasha/noti-vim'
+<
+
+packer.nvim: >
+    use 'devjasha/noti-vim'
+<
+
+lazy.nvim: >
+    { 'devjasha/noti-vim' }
+<
+
+==============================================================================
+3. CONFIGURATION                                        *noti-configuration*
+
+Available configuration options:
+
+                                                        *g:noti_notes_dir*
+g:noti_notes_dir
+    Path to your notes directory.
+    Default: '~/notes'
+>
+    let g:noti_notes_dir = '~/Documents/notes'
+<
+
+                                                    *g:noti_default_folder*
+g:noti_default_folder
+    Default folder for new notes.
+    Default: ''
+>
+    let g:noti_default_folder = 'inbox'
+<
+
+                                                      *g:noti_default_tags*
+g:noti_default_tags
+    Default tags for new notes.
+    Default: []
+>
+    let g:noti_default_tags = ['quick-note']
+<
+
+                                                  *g:noti_git_auto_commit*
+g:noti_git_auto_commit
+    Automatically commit changes after saving notes.
+    Default: 0
+>
+    let g:noti_git_auto_commit = 1
+<
+
+                                             *g:noti_no_default_mappings*
+g:noti_no_default_mappings
+    Disable default keybindings.
+    Default: 0
+>
+    let g:noti_no_default_mappings = 1
+<
+
+==============================================================================
+4. COMMANDS                                                  *noti-commands*
+
+                                                                 *:NotiNew*
+:NotiNew [title]
+    Create a new note. If title is not provided, you will be prompted.
+    Uses g:noti_default_folder and g:noti_default_tags if set.
+
+                                                                *:NotiList*
+:NotiList [folder]
+    List all notes. Optionally filter by folder.
+    Press <CR> on a note to open it.
+    Press 'q' to close the list.
+
+                                                              *:NotiSearch*
+:NotiSearch <query>
+    Search notes by content, title, or tags.
+    Press <CR> on a result to open the note.
+    Press 'q' to close search results.
+
+                                                                *:NotiTags*
+:NotiTags
+    List all tags with usage counts.
+    Press <CR> on a tag to list notes with that tag.
+    Press 'q' to close the list.
+
+                                                             *:NotiFolders*
+:NotiFolders
+    List all folders with note counts.
+    Press <CR> on a folder to list notes in that folder.
+    Press 'q' to close the list.
+
+                                                          *:NotiGitStatus*
+:NotiGitStatus
+    Show git status of notes directory.
+
+                                                          *:NotiGitCommit*
+:NotiGitCommit [message]
+    Commit all changes. Prompts for message if not provided.
+
+                                                            *:NotiGitSync*
+:NotiGitSync [message]
+    Full sync: commit changes, pull from remote, and push.
+    Optionally provide a commit message.
+
+==============================================================================
+5. KEYBINDINGS                                            *noti-keybindings*
+
+Default keybindings (with <leader> typically being '\'):
+
+<leader>nn          Create new note                    |:NotiNew|
+<leader>nl          List all notes                     |:NotiList|
+<leader>ns          Search notes                       |:NotiSearch|
+<leader>nt          Browse tags                        |:NotiTags|
+<leader>nf          Browse folders                     |:NotiFolders|
+<leader>ng          Git status                         |:NotiGitStatus|
+<leader>nc          Git commit                         |:NotiGitCommit|
+<leader>np          Git sync                           |:NotiGitSync|
+
+To disable default keybindings:
+>
+    let g:noti_no_default_mappings = 1
+<
+
+Then define your own:
+>
+    nnoremap <leader>n :NotiNew<CR>
+    nnoremap <leader>l :NotiList<CR>
+    " etc...
+<
+
+==============================================================================
+6. FUNCTIONS                                              *noti-functions*
+
+                                                              *noti#New()*
+noti#New([title])
+    Create a new note with optional title.
+
+                                                             *noti#List()*
+noti#List([folder])
+    List notes, optionally filtered by folder.
+
+                                                           *noti#Search()*
+noti#Search(query)
+    Search notes for query.
+
+                                                             *noti#Tags()*
+noti#Tags()
+    List all tags.
+
+                                                          *noti#Folders()*
+noti#Folders()
+    List all folders.
+
+                                                       *noti#GitStatus()*
+noti#GitStatus()
+    Show git status.
+
+                                                       *noti#GitCommit()*
+noti#GitCommit([message])
+    Commit changes with optional message.
+
+                                                         *noti#GitSync()*
+noti#GitSync([message])
+    Sync with remote git repository.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
